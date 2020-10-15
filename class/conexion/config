@@ -1,0 +1,9 @@
+{
+    "conexion":{
+        "server": "127.0.0.1",
+        "user": "root",
+        "pwd": "",
+        "port": "3306",
+        "bdname": "phpapidb"
+    }
+}
