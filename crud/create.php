@@ -14,18 +14,25 @@ $con = $database->getConection();
 $items = new employed($con);
 
 $data = json_decode(file_get_contents("php://input"));
-$nombre_imagen = $_FILES['imagen']['name'];
 $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/Media/img";
+$servidor = "http://" . $_SERVER["HTTP_HOST"] . "/Media/img";
 
-$items->name = $data->name;
-$items->email = $data->email;
-$items->age = $data->age;
-$items->designation = $data->designation;
-$items->created = $data->created;
-move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta_destino . "/" . $items->name);
-if ($items->insertEmployed($carpeta_destino)) {
+$items->marca = $_POST['marca'];
+$items->name = $_POST['name'];
+$items->noserie = $_POST['noserie'];
+$items->costo = $_POST['costo'];
+$items->descripcion = $_POST['descripcion'];
+$searchString = " ";
+$replaceString = "-";
+$namefile = str_replace($searchString, $replaceString, $originalString);
+if(move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta_destino . "/" . $namefile . ".jpg")){
+    echo "Se subio el archivo"
+}
+$filename = $servidor . "/" . $namefile . ".jpg";
+if ($items->insertEmployed($filename)) {
     echo 'Employee created successfully.';
 } else {
     echo ($items->name . "" . $items->email);
     echo 'Employee could not be created.';
 }
+//$_FILES['imagen']['tmp_name']

@@ -33,7 +33,7 @@ class  employed
         }
         return $this->converUTF8($result);
     }
-    public function insertEmployed()
+    public function insertEmployed(string $url)
     {
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->marca = htmlspecialchars(strip_tags($this->marca));
@@ -48,8 +48,8 @@ class  employed
                         Marca = '" . $this->marca . "', 
                         noserie = '" . $this->noserie . "', 
                         costo = '" . $this->costo . "', 
-                        descripcion = '" . $this->descripcion . "'
-                        rutaimagen= '" . $this->rutaimagen . "' 
+                        descripcion = '" . $this->descripcion . "',
+                        rutaimagen= '" . $url . "' 
                         ";
 
 
@@ -95,15 +95,16 @@ class  employed
         $this->costo = htmlspecialchars(strip_tags($this->costo));
         $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
         $this->rutaimagen = htmlspecialchars(strip_tags($this->rutaimagen));
-        $sqlQuery = "INSERT INTO 
+        $sqlQuery = "UPDATE 
                         " . $this->db_table . "
                     SET
                         nombre = '" . $this->name . "', 
                         Marca = '" . $this->marca . "', 
                         noserie = '" . $this->noserie . "', 
                         costo = '" . $this->costo . "', 
-                        descripcion = '" . $this->descripcion . "'
-                        rutaimagen= '" . $url . "/" . $this->name . "' 
+                        descripcion = '" . $this->descripcion . "',
+                        rutaimagen = '" . $url . "' 
+                    WHERE id = '" . $this->id . "' 
                         ";
 
         if (mysqli_query($this->con, $sqlQuery)) {

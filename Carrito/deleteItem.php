@@ -5,17 +5,17 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once "class/auth.class.php";
-require_once "class/answer.class.php";
-require_once "class/conexion/connection.php";
+require_once "../class/carrito.class.php";
+require_once "../class/answer.class.php";
+require_once "../class/conexion/connection.php";
 
 $_con = new connection();
 $_respuestas = new respuestas();
-$_auth = new auth($_con->getConection());
+$_carrito = new carrito($_con->getConection());
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $postBody = file_get_contents("php://input");
-    $datosArraY = $_auth->login($postBody);
+    $datosArraY = $_carrito->Deleteitem($postBody);
     echo json_encode($datosArraY);
 } else {
     echo ("Metodo no permitido");
